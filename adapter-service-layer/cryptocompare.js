@@ -40,7 +40,7 @@ class CryptoCompareWrapper {
 
     /**
      * Get crypto currency news based on different filters
-     * @param {*} currency Chosen currency (CODE) - default is "all"
+     * @param {string} currency Chosen currency (CODE) - default is "all"
      * @returns Filtered crypto currency news
      */
     async getSpecificCryptoNews(currency = "all") {

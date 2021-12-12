@@ -51,8 +51,8 @@ class CryptoPanicWrapper {
 
     /**
      * Get crypto currency news based on different filters
-     * @param {*} currency Chosen currency (CODE) - default is "all"
-     * @param {*} numberOfNews Minimum number of news
+     * @param {string} currency Chosen currency (CODE) - default is "all"
+     * @param {number} numberOfNews Minimum number of news
      * @returns Filtered crypto currency news
      */
     async getSpecificCryptoNews(currency = "all", numberOfNews = this.#NEWS_PER_PAGE) {

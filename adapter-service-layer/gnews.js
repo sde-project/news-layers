@@ -41,9 +41,9 @@ class GNewsWrapper {
 
     /**
      * Get crypto currency news based on different filters
-     * @param {*} fromDate Search news from the specified date
-     * @param {*} toDate Search news to the specified date
-     * @param {*} currency Chosen currency - default is "all"
+     * @param {Date} fromDate Search news from the specified date
+     * @param {Date} toDate Search news to the specified date
+     * @param {string} currency Chosen currency - default is "all"
      * @returns Filtered crypto currency news
      */
     async getSpecificCryptoNews(fromDate, toDate, currency = "all") {
