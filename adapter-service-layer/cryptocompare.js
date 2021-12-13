@@ -20,22 +20,20 @@ class CryptoCompareWrapper {
      * @returns Latest crypto currency news
      */
     async getLatestCryptoNews() {
-        try {
-            // Array keeping all the news
-            let newsResult = [];
+        // Array keeping all the news
+        let newsResult = [];
 
-            // Perform request
-            const rawNews = await axios.get(`https://min-api.cryptocompare.com/data/v2/news/?api_key=${this.#API_KEY}&extraParams=${this.#APP_NAME}`);
+        // Perform request
+        const rawNews = await axios.get(`https://min-api.cryptocompare.com/data/v2/news/?api_key=${this.#API_KEY}&extraParams=${this.#APP_NAME}`).catch(e => console.log(e));
+        if (rawNews) {
             for (const newsItem in rawNews.data.Data) {
                 if (Object.hasOwnProperty.call(rawNews.data.Data, newsItem)) {
                     const element = rawNews.data.Data[newsItem];
                     newsResult.push(new News(element.title, element.url, element.published_on * 1000));
                 }
             }
-            return newsResult;
-        } catch (e) {
-            console.log(e);
         }
+        return newsResult;
     }
 
     /**
@@ -44,22 +42,20 @@ class CryptoCompareWrapper {
      * @returns Filtered crypto currency news
      */
     async getSpecificCryptoNews(currency = "all") {
-        try {
-            // Array keeping all the news
-            let newsResult = [];
+        // Array keeping all the news
+        let newsResult = [];
 
-            // Perform request
-            const rawNews = await axios.get(`https://min-api.cryptocompare.com/data/v2/news/?api_key=${this.#API_KEY}&${currency == "all" ? "" : ("categories=" + currency)}&extraParams=${this.#APP_NAME}`);
+        // Perform request
+        const rawNews = await axios.get(`https://min-api.cryptocompare.com/data/v2/news/?api_key=${this.#API_KEY}&${currency == "all" ? "" : ("categories=" + currency)}&extraParams=${this.#APP_NAME}`).catch(e => console.log(e));
+        if (rawNews) {
             for (const newsItem in rawNews.data.Data) {
                 if (Object.hasOwnProperty.call(rawNews.data.Data, newsItem)) {
                     const element = rawNews.data.Data[newsItem];
                     newsResult.push(new News(element.title, element.url, element.published_on * 1000));
                 }
             }
-            return newsResult;
-        } catch (e) {
-            console.log(e);
         }
+        return newsResult;
     }
 }
 

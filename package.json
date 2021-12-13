@@ -1,21 +1,21 @@
 {
-  "name": "news-layer",
+  "name": "news-layers",
   "version": "1.0.0",
   "description": "News aggregation layer",
-  "main": "news-layer.js",
+  "main": "news-layers.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sde-project/news-layer.git"
+    "url": "git+https://github.com/sde-project/news-layers.git"
   },
   "author": "Luca De Menego",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sde-project/news-layer/issues"
+    "url": "https://github.com/sde-project/news-layers/issues"
   },
-  "homepage": "https://github.com/sde-project/news-layer#readme",
+  "homepage": "https://github.com/sde-project/news-layers#readme",
   "dependencies": {
     "axios": "^0.24.0",
     "dotenv": "^10.0.0",

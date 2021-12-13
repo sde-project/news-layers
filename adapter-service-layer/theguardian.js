@@ -23,16 +23,16 @@ class TheGuardianWrapper {
      * @returns Latest crypto currency news
      */
     async getLatestCryptoNews(numberOfNews = this.#NEWS_PER_PAGE) {
-        try {
-            // Array keeping all the news
-            let newsResult = [];
+        // Array keeping all the news
+        let newsResult = [];
 
-            // Define the pages we have to fetch
-            const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_SECOND);
+        // Define the pages we have to fetch
+        const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_SECOND);
 
-            // Perform requests
-            for (let i = 0; i < pagesToFetch; i++) {
-                const rawNews = await axios.get(`https://content.guardianapis.com/search?q=cryptocurrency&api-key=${this.#API_KEY}&order-by=newest&page-size=${this.#NEWS_PER_PAGE}&page=${i + this.#FIRST_PAGE}`);
+        // Perform requests
+        for (let i = 0; i < pagesToFetch; i++) {
+            const rawNews = await axios.get(`https://content.guardianapis.com/search?q=cryptocurrency&api-key=${this.#API_KEY}&order-by=newest&page-size=${this.#NEWS_PER_PAGE}&page=${i + this.#FIRST_PAGE}`).catch(e => console.log(e));
+            if (rawNews) {
                 for (const newsItem in rawNews.data.response.results) {
                     if (Object.hasOwnProperty.call(rawNews.data.response.results, newsItem)) {
                         const element = rawNews.data.response.results[newsItem];
@@ -40,10 +40,8 @@ class TheGuardianWrapper {
                     }
                 }
             }
-            return newsResult;
-        } catch (e) {
-            console.log(e);
         }
+        return newsResult;
     }
 
     /**
@@ -55,24 +53,24 @@ class TheGuardianWrapper {
      * @returns Filtered crypto currency news
      */
     async getSpecificCryptoNews(fromDate, toDate, currency = "all", numberOfNews = this.#NEWS_PER_PAGE) {
-        try {
-            // Array keeping all the news
-            let newsResult = [];
+        // Array keeping all the news
+        let newsResult = [];
 
-            // Define the pages we have to fetch
-            const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_SECOND);
+        // Define the pages we have to fetch
+        const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_SECOND);
 
-            // Convert dates to solve the timezone issue
-            const offset = fromDate.getTimezoneOffset();
-            fromDate = new Date(fromDate.getTime() - (offset * 60 * 1000));
-            toDate = new Date(toDate.getTime() - (offset * 60 * 1000));
+        // Convert dates to solve the timezone issue
+        const offset = fromDate.getTimezoneOffset();
+        fromDate = new Date(fromDate.getTime() - (offset * 60 * 1000));
+        toDate = new Date(toDate.getTime() - (offset * 60 * 1000));
 
-            // Define date filters according to API specification
-            const dateFilters = `from-date=${fromDate.toISOString().split('T')[0]}&to-date=${toDate.toISOString().split('T')[0]}`;
+        // Define date filters according to API specification
+        const dateFilters = `from-date=${fromDate.toISOString().split('T')[0]}&to-date=${toDate.toISOString().split('T')[0]}`;
 
-            // Perform requests
-            for (let i = 0; i < pagesToFetch; i++) {
-                const rawNews = await axios.get(`https://content.guardianapis.com/search?q=${currency == "all" ? "cryptocurrency" : currency}&api-key=${this.#API_KEY}&query-fields=main&order-by=newest&page-size=${this.#NEWS_PER_PAGE}&page=${i + this.#FIRST_PAGE}&${dateFilters}`);
+        // Perform requests
+        for (let i = 0; i < pagesToFetch; i++) {
+            const rawNews = await axios.get(`https://content.guardianapis.com/search?q=${currency == "all" ? "cryptocurrency" : currency}&api-key=${this.#API_KEY}&query-fields=main&order-by=newest&page-size=${this.#NEWS_PER_PAGE}&page=${i + this.#FIRST_PAGE}&${dateFilters}`).catch(e => console.log(e));
+            if (rawNews) {
                 for (const newsItem in rawNews.data.response.results) {
                     if (Object.hasOwnProperty.call(rawNews.data.response.results, newsItem)) {
                         const element = rawNews.data.response.results[newsItem];
@@ -80,10 +78,8 @@ class TheGuardianWrapper {
                     }
                 }
             }
-            return newsResult;
-        } catch (e) {
-            console.log(e);
         }
+        return newsResult;
     }
 }
 

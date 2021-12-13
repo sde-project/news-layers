@@ -1,5 +1,5 @@
-# news-layer
-News aggregation layer
+# news-layers
+News aggregation layers
 
 ### Data Service Layer
 The news providers used by this layer are:

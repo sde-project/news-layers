@@ -23,16 +23,16 @@ class NewYorkTimesWrapper {
      * @returns Latest crypto currency news
      */
     async getLatestCryptoNews(numberOfNews = this.#NEWS_PER_PAGE) {
-        try {
-            // Array keeping all the news
-            let newsResult = [];
+        // Array keeping all the news
+        let newsResult = [];
 
-            // Define the pages we have to fetch
-            const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_MINUTE);
+        // Define the pages we have to fetch
+        const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_MINUTE);
 
-            // Perform requests
-            for (let i = 0; i < pagesToFetch; i++) {
-                const rawNews = await axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=cryptocurrency&api-key=${this.#API_KEY}&page=${i + this.#FIRST_PAGE}`);
+        // Perform requests
+        for (let i = 0; i < pagesToFetch; i++) {
+            const rawNews = await axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=cryptocurrency&api-key=${this.#API_KEY}&page=${i + this.#FIRST_PAGE}`).catch(e => console.log(e));
+            if (rawNews) {
                 for (const newsItem in rawNews.data.response.docs) {
                     if (Object.hasOwnProperty.call(rawNews.data.response.docs, newsItem)) {
                         const element = rawNews.data.response.docs[newsItem];
@@ -40,10 +40,8 @@ class NewYorkTimesWrapper {
                     }
                 }
             }
-            return newsResult;
-        } catch (e) {
-            console.log(e);
         }
+        return newsResult;
     }
 
     /**
@@ -55,24 +53,25 @@ class NewYorkTimesWrapper {
      * @returns Filtered crypto currency news
      */
     async getSpecificCryptoNews(fromDate, toDate, currency = "all", numberOfNews = this.#NEWS_PER_PAGE) {
-        try {
-            // Array keeping all the news
-            let newsResult = [];
+        // Array keeping all the news
+        let newsResult = [];
 
-            // Define the pages we have to fetch
-            const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_MINUTE);
+        // Define the pages we have to fetch
+        const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_MINUTE);
 
-            // Convert dates to solve the timezone issue
-            const offset = fromDate.getTimezoneOffset();
-            fromDate = new Date(fromDate.getTime() - (offset * 60 * 1000));
-            toDate = new Date(toDate.getTime() - (offset * 60 * 1000));
+        // Convert dates to solve the timezone issue
+        const offset = fromDate.getTimezoneOffset();
+        fromDate = new Date(fromDate.getTime() - (offset * 60 * 1000));
+        toDate = new Date(toDate.getTime() - (offset * 60 * 1000));
 
-            // Define date filters according to API specification
-            const dateFilters = `begin_date=${fromDate.toISOString().split('T')[0].replace(/-/g, '')}&end_date=${toDate.toISOString().split('T')[0].replace(/-/g, '')}`;
+        // Define date filters according to API specification
+        const dateFilters = `begin_date=${fromDate.toISOString().split('T')[0].replace(/-/g, '')}&end_date=${toDate.toISOString().split('T')[0].replace(/-/g, '')}`;
 
-            // Perform requests
-            for (let i = 0; i < pagesToFetch; i++) {
-                const rawNews = await axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${currency == "all" ? "cryptocurrency" : currency}&api-key=${this.#API_KEY}&page=${i + this.#FIRST_PAGE}&facet=true&${dateFilters}`);
+        // Perform requests
+        for (let i = 0; i < pagesToFetch; i++) {
+            const rawNews = await axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${currency == "all" ? "cryptocurrency" : currency}&api-key=${this.#API_KEY}&page=${i + this.#FIRST_PAGE}&facet=true&${dateFilters}`).catch(e => console.log(e));
+
+            if (rawNews) {
                 for (const newsItem in rawNews.data.response.docs) {
                     if (Object.hasOwnProperty.call(rawNews.data.response.docs, newsItem)) {
                         const element = rawNews.data.response.docs[newsItem];
@@ -80,10 +79,8 @@ class NewYorkTimesWrapper {
                     }
                 }
             }
-            return newsResult;
-        } catch (e) {
-            console.log(e);
         }
+        return newsResult;
     }
 }
 

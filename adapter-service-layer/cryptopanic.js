@@ -26,16 +26,16 @@ class CryptoPanicWrapper {
      * @returns Latest crypto currency news
      */
     async getLatestCryptoNews(numberOfNews = this.#NEWS_PER_PAGE) {
-        try {
-            // Array keeping all the news
-            let newsResult = [];
+        // Array keeping all the news
+        let newsResult = [];
 
-            // Define the pages we have to fetch
-            const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_SECOND);
+        // Define the pages we have to fetch
+        const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_SECOND);
 
-            // Perform request
-            for (let i = 0; i < pagesToFetch; i++) {
-                const rawNews = await axios.get(`https://cryptopanic.com/api/v1/posts/?auth_token=${this.#API_KEY}&filter=${this.#FILTER}&kind=${this.#KIND}&public=${this.#PUBLIC}&page=${i + this.#FIRST_PAGE}`);
+        // Perform request
+        for (let i = 0; i < pagesToFetch; i++) {
+            const rawNews = await axios.get(`https://cryptopanic.com/api/v1/posts/?auth_token=${this.#API_KEY}&filter=${this.#FILTER}&kind=${this.#KIND}&public=${this.#PUBLIC}&page=${i + this.#FIRST_PAGE}`).catch(e => console.log(e));
+            if (rawNews) {
                 for (const newsItem in rawNews.data.results) {
                     if (Object.hasOwnProperty.call(rawNews.data.results, newsItem)) {
                         const element = rawNews.data.results[newsItem];
@@ -43,10 +43,8 @@ class CryptoPanicWrapper {
                     }
                 }
             }
-            return newsResult;
-        } catch (e) {
-            console.log(e);
         }
+        return newsResult;
     }
 
     /**
@@ -56,16 +54,16 @@ class CryptoPanicWrapper {
      * @returns Filtered crypto currency news
      */
     async getSpecificCryptoNews(currency = "all", numberOfNews = this.#NEWS_PER_PAGE) {
-        try {
-            // Array keeping all the news
-            let newsResult = [];
+        // Array keeping all the news
+        let newsResult = [];
 
-            // Define the pages we have to fetch
-            const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_SECOND);
+        // Define the pages we have to fetch
+        const pagesToFetch = Math.min(Math.ceil(numberOfNews / this.#NEWS_PER_PAGE), this.#CALLS_PER_SECOND);
 
-            // Perform requests
-            for (let i = 0; i < pagesToFetch; i++) {
-                const rawNews = await axios.get(`https://cryptopanic.com/api/v1/posts/?auth_token=${this.#API_KEY}&filter=${this.#FILTER}&kind=${this.#KIND}&public=${this.#PUBLIC}&page=${i + this.#FIRST_PAGE}${currency == "all" ? "" : ("&currencies=" + currency)}`);
+        // Perform requests
+        for (let i = 0; i < pagesToFetch; i++) {
+            const rawNews = await axios.get(`https://cryptopanic.com/api/v1/posts/?auth_token=${this.#API_KEY}&filter=${this.#FILTER}&kind=${this.#KIND}&public=${this.#PUBLIC}&page=${i + this.#FIRST_PAGE}${currency == "all" ? "" : ("&currencies=" + currency)}`).catch(e => console.log(e));
+            if (rawNews) {
                 for (const newsItem in rawNews.data.results) {
                     if (Object.hasOwnProperty.call(rawNews.data.results, newsItem)) {
                         const element = rawNews.data.results[newsItem];
@@ -73,10 +71,8 @@ class CryptoPanicWrapper {
                     }
                 }
             }
-            return newsResult;
-        } catch (e) {
-            console.log(e);
         }
+        return newsResult;
     }
 }
 
