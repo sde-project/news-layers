@@ -36,7 +36,7 @@ class TheGuardianWrapper {
                 for (const newsItem in rawNews.data.response.results) {
                     if (Object.hasOwnProperty.call(rawNews.data.response.results, newsItem)) {
                         const element = rawNews.data.response.results[newsItem];
-                        newsResult.push(new News(element.webTitle, element.webUrl, element.webPublicationDate));
+                        newsResult.push(new News(element.webTitle, element.webUrl, element.webPublicationDate, "The Guardian"));
                     }
                 }
             }
@@ -74,7 +74,7 @@ class TheGuardianWrapper {
                 for (const newsItem in rawNews.data.response.results) {
                     if (Object.hasOwnProperty.call(rawNews.data.response.results, newsItem)) {
                         const element = rawNews.data.response.results[newsItem];
-                        newsResult.push(new News(element.webTitle, element.webUrl, element.webPublicationDate));
+                        newsResult.push(new News(element.webTitle, element.webUrl, element.webPublicationDate, "The Guardian"));
                     }
                 }
             }

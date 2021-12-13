@@ -18,6 +18,15 @@ After the API fetching, all the news will be expressed with the following struct
 {
     "title": "news title",
     "content": "link to the news",
-    "publishedAt": "date in which the news was published"
+    "publishedAt": "date in which the news was published",
+    "source": "API source"
 }
 ```
+
+### Business Logic Layer
+News is retrieved from the Adapter Service Layer and filtered based on pre-defined rules.
+Two routes are exposed:
+- `/api/last`: get latest news from crypto niche news providers;
+- `/api/search`: search for specific news based on the time frame and the currency.
+
+The API documentation can be found [here]()

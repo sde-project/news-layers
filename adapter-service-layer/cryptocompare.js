@@ -29,7 +29,7 @@ class CryptoCompareWrapper {
             for (const newsItem in rawNews.data.Data) {
                 if (Object.hasOwnProperty.call(rawNews.data.Data, newsItem)) {
                     const element = rawNews.data.Data[newsItem];
-                    newsResult.push(new News(element.title, element.url, element.published_on * 1000));
+                    newsResult.push(new News(element.title, element.url, element.published_on * 1000, "CryptoCompare"));
                 }
             }
         }
@@ -51,7 +51,7 @@ class CryptoCompareWrapper {
             for (const newsItem in rawNews.data.Data) {
                 if (Object.hasOwnProperty.call(rawNews.data.Data, newsItem)) {
                     const element = rawNews.data.Data[newsItem];
-                    newsResult.push(new News(element.title, element.url, element.published_on * 1000));
+                    newsResult.push(new News(element.title, element.url, element.published_on * 1000, "CryptoCompare"));
                 }
             }
         }

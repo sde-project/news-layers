@@ -30,7 +30,7 @@ class GNewsWrapper {
             for (const newsItem in rawNews.data.articles) {
                 if (Object.hasOwnProperty.call(rawNews.data.articles, newsItem)) {
                     const element = rawNews.data.articles[newsItem];
-                    newsResult.push(new News(element.title, element.url, element.publishedAt));
+                    newsResult.push(new News(element.title, element.url, element.publishedAt, "GNews"));
                 }
             }
         }
@@ -62,7 +62,7 @@ class GNewsWrapper {
             for (const newsItem in rawNews.data.articles) {
                 if (Object.hasOwnProperty.call(rawNews.data.articles, newsItem)) {
                     const element = rawNews.data.articles[newsItem];
-                    newsResult.push(new News(element.title, element.url, element.publishedAt));
+                    newsResult.push(new News(element.title, element.url, element.publishedAt, "GNews"));
                 }
             }
         }

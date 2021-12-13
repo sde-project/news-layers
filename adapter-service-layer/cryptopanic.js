@@ -39,7 +39,7 @@ class CryptoPanicWrapper {
                 for (const newsItem in rawNews.data.results) {
                     if (Object.hasOwnProperty.call(rawNews.data.results, newsItem)) {
                         const element = rawNews.data.results[newsItem];
-                        newsResult.push(new News(element.title, element.url, element.published_at));
+                        newsResult.push(new News(element.title, element.url, element.published_at, "CryptoPanic"));
                     }
                 }
             }
@@ -67,7 +67,7 @@ class CryptoPanicWrapper {
                 for (const newsItem in rawNews.data.results) {
                     if (Object.hasOwnProperty.call(rawNews.data.results, newsItem)) {
                         const element = rawNews.data.results[newsItem];
-                        newsResult.push(new News(element.title, element.url, element.published_at));
+                        newsResult.push(new News(element.title, element.url, element.published_at, "CryptoPanic"));
                     }
                 }
             }

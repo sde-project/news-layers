@@ -36,7 +36,7 @@ class NewYorkTimesWrapper {
                 for (const newsItem in rawNews.data.response.docs) {
                     if (Object.hasOwnProperty.call(rawNews.data.response.docs, newsItem)) {
                         const element = rawNews.data.response.docs[newsItem];
-                        newsResult.push(new News(element.snippet, element.web_url, element.pub_date));
+                        newsResult.push(new News(element.snippet, element.web_url, element.pub_date, "New York Times"));
                     }
                 }
             }
@@ -75,7 +75,7 @@ class NewYorkTimesWrapper {
                 for (const newsItem in rawNews.data.response.docs) {
                     if (Object.hasOwnProperty.call(rawNews.data.response.docs, newsItem)) {
                         const element = rawNews.data.response.docs[newsItem];
-                        newsResult.push(new News(element.snippet, element.web_url, element.pub_date));
+                        newsResult.push(new News(element.snippet, element.web_url, element.pub_date, "New York Times"));
                     }
                 }
             }
