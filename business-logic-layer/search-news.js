@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+// String similarity calculation
+const stringSimilarity = require('string-similarity');
+const similarityThreshold = 0.6;
+
+// API Wrappers
 const GNewsWrapper = require('../adapter-service-layer/gnews');
 const NewYorkTimesWrapper = require('../adapter-service-layer/nytimes');
 const TheGuardianWrapper = require('../adapter-service-layer/theguardian');
@@ -53,6 +58,16 @@ router.get("/", async (req, res, next) => {
     news.sort((a, b) => {
         return (b.publishedAt - a.publishedAt);
     });
+
+    // Remove duplicates, similarity calculated based on Sørensen Dice coefficient
+    for (let i = 0; i < news.length; i++) {
+        for (let j = i; j < news.length; j++) {
+            const similarity = stringSimilarity.compareTwoStrings(news[i].title, news[j].title);
+            if (similarity > similarityThreshold) {
+                news.splice(j, 1);
+            }
+        }
+    }
 
     // Return news or error
     if (news) {
