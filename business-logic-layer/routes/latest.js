@@ -9,8 +9,8 @@ const similarityThreshold = 0.6;
 const vader = require('vader-sentiment');
 
 // APIs Wrappers
-const CryptoCompareWrapper = require('../adapter-service-layer/cryptocompare');
-const CryptoPanicWrapper = require('../adapter-service-layer/cryptopanic');
+const CryptoCompareWrapper = require('../wrappers/cryptocompare-wrapper');
+const CryptoPanicWrapper = require('../wrappers/cryptopanic-wrapper');
 
 /**
  * Get latest news
@@ -22,8 +22,8 @@ router.get("/", async (req, res, next) => {
     const numberOfNews = (req.query.number ? req.query.number : 1);
 
     // Setup API wrappers
-    const cryptoCompareWrapper = new CryptoCompareWrapper();
-    const cryptoPanicWrapper = new CryptoPanicWrapper();
+    const cryptoCompareWrapper = new CryptoCompareWrapper(process.env.ADAPTER_HOST);
+    const cryptoPanicWrapper = new CryptoPanicWrapper(process.env.ADAPTER_HOST);
 
     // Get news from different sources
     let news = await Promise.all([

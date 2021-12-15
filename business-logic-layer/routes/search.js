@@ -9,9 +9,9 @@ const similarityThreshold = 0.6;
 const vader = require('vader-sentiment');
 
 // API Wrappers
-const GNewsWrapper = require('../adapter-service-layer/gnews');
-const NewYorkTimesWrapper = require('../adapter-service-layer/nytimes');
-const TheGuardianWrapper = require('../adapter-service-layer/theguardian');
+const GNewsWrapper = require('../wrappers/gnews-wrapper');
+const NewYorkTimesWrapper = require('../wrappers/nytimes-wrapper');
+const TheGuardianWrapper = require('../wrappers/theguardian-wrapper');
 
 /**
  * Search for a certain number of news during a given time frame

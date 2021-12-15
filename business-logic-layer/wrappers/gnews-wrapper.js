@@ -1,19 +1,19 @@
 var axios = require('axios');
-const News = require('../models/news');
+const News = require('../../models/news');
 
 /**
- * Wrapper for GNews API
+ * Wrapper for GNews Adapter Layer
  */
 class GNewsWrapper {
     #API_KEY;               // API Key necessary for accessing the API
-    #NEWS_PER_PAGE = 10;    // How many news are there in every page
-    #CALLS_PER_SECOND = 1;  // How many calls per second can we do
+    #HOST;
 
     /**
      * Constructor - get API KEY from environment variables
      */
     constructor() {
-        this.#API_KEY = process.env.GNEWS_API_KEY;
+        this.#API_KEY = process.env.NEWS_ADAPTER_API_KEY;
+        this.#HOST = process.env.ADAPTER_HOST;
     }
 
     /**
@@ -25,12 +25,12 @@ class GNewsWrapper {
         let newsResult = [];
 
         // Perform request
-        const rawNews = await axios.get(`https://gnews.io/api/v4/top-headlines?q=cryptocurrency&token=${this.#API_KEY}&lang=en&max=${this.#NEWS_PER_PAGE}`).catch(e => console.log(e));
+        const rawNews = await axios.get(`${this.#HOST}/api/gnews/latest?key=${this.#API_KEY}`).catch(e => console.log(e));
         if (rawNews) {
-            for (const newsItem in rawNews.data.articles) {
-                if (Object.hasOwnProperty.call(rawNews.data.articles, newsItem)) {
-                    const element = rawNews.data.articles[newsItem];
-                    newsResult.push(new News(element.title, element.url, element.publishedAt, "GNews"));
+            for (const newsItem in rawNews.data) {
+                if (Object.hasOwnProperty.call(rawNews.data, newsItem)) {
+                    const element = rawNews.data[newsItem];
+                    newsResult.push(News.from(element));
                 }
             }
         }
@@ -54,15 +54,15 @@ class GNewsWrapper {
         toDate = new Date(toDate.getTime() - (offset * 60 * 1000));
 
         // Define date filters according to API specification
-        const dateFilters = `from=${fromDate.toISOString()}&to=${toDate.toISOString()}&sortby=relevance`;
+        const dateFilters = `from=${fromDate.toISOString()}&to=${toDate.toISOString()}`;
 
-        // Perform requests
-        const rawNews = await axios.get(`https://gnews.io/api/v4/top-headlines?q=${currency == "all" ? "cryptocurrency" : currency}&token=${this.#API_KEY}&lang=en&max=${this.#NEWS_PER_PAGE}&${dateFilters}`).catch(e => console.log(e));
+        // Perform request
+        const rawNews = await axios.get(`${this.#HOST}/api/gnews/search?key=${this.#API_KEY}&${dateFilters}&currency=${currency}`).catch(e => console.log(e));
         if (rawNews) {
-            for (const newsItem in rawNews.data.articles) {
-                if (Object.hasOwnProperty.call(rawNews.data.articles, newsItem)) {
-                    const element = rawNews.data.articles[newsItem];
-                    newsResult.push(new News(element.title, element.url, element.publishedAt, "GNews"));
+            for (const newsItem in rawNews.data) {
+                if (Object.hasOwnProperty.call(rawNews.data, newsItem)) {
+                    const element = rawNews.data[newsItem];
+                    newsResult.push(News.from(element));
                 }
             }
         }

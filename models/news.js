@@ -14,6 +14,10 @@ class News {
         this.publishedAt = new Date(publishedAt);
         this.source = source;
     }
+
+    static from(json) {
+        return Object.assign(new News(), json);
+    }
 }
 
 module.exports = News;

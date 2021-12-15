@@ -1,9 +1,9 @@
 // API Wrappers
 const CryptoCompareWrapper = require('./cryptocompare');
 const CryptoPanicWrapper = require('./cryptopanic');
-const GNewsWrapper = require('./gnews');
-const NewYorkTimesWrapper = require('./nytimes');
-const TheGuardianWrapper = require('./theguardian');
+const GNewsWrapper = require('./gnews-wrapper');
+const NewYorkTimesWrapper = require('./nytimes-wrapper');
+const TheGuardianWrapper = require('./theguardian-wrapper');
 
 // Load environment variables
 require('dotenv').config();
