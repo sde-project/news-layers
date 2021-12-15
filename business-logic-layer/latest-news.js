@@ -5,6 +5,9 @@ const router = express.Router();
 const stringSimilarity = require('string-similarity');
 const similarityThreshold = 0.6;
 
+// Sentiment analysis - paper on the use of vader for crypto sentiment analysis: https://www.mdpi.com/2504-2289/4/4/33/pdf
+const vader = require('vader-sentiment');
+
 // APIs Wrappers
 const CryptoCompareWrapper = require('../adapter-service-layer/cryptocompare');
 const CryptoPanicWrapper = require('../adapter-service-layer/cryptopanic');
@@ -45,6 +48,11 @@ router.get("/", async (req, res, next) => {
                 news.splice(j, 1);
             }
         }
+    }
+
+    // Sentiment analysis
+    for (let i = 0; i < news.length; i++) {
+        news[i].sentiment = vader.SentimentIntensityAnalyzer.polarity_scores(news[i].title).compound;
     }
 
     // Return news or error
@@ -96,6 +104,11 @@ router.get("/currency/:currency", async (req, res, next) => {
                     news.splice(j, 1);
                 }
             }
+        }
+
+        // Sentiment analysis
+        for (let i = 0; i < news.length; i++) {
+            news[i].sentiment = vader.SentimentIntensityAnalyzer.polarity_scores(news[i].title).compound;
         }
 
         // Return news or error
