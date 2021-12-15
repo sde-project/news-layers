@@ -40,7 +40,7 @@ The API documentation can be found [here]()
 News is retrieved from the Adapter Service Layer, filtered based on pre-defined rules and checked for duplicates.
 The sentiment is calculated in this layer using *VADER*.
 **Two routes** are exposed:
-- `/api/last`: get latest news from crypto niche news providers;
+- `/api/latest`: get latest news from crypto niche news providers;
 - `/api/search`: search for specific news based on the time frame and the currency.
 
 The API documentation can be found [here]()
