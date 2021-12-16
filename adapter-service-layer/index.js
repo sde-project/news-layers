@@ -1,6 +1,10 @@
 // Initialization
 const express = require('express');
 const adapterLayer = express();
+const cors = require('cors');
+const morgan = require('morgan');
+const swaggerUi = require('swagger-ui-express');
+const docs = require('./doc/index');
 
 // Route modules
 const cryptocompare = require('./routes/cryptocompare');
@@ -14,19 +18,32 @@ require('dotenv').config();
 
 // Middlewares
 adapterLayer.use(express.json());
+adapterLayer.use(morgan("dev"));
+adapterLayer.use(cors());
+
+// Documentation
+adapterLayer.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
+
+// Check permissions
+adapterLayer.use((req, res, next) => {
+    if (req.headers.authorization !== process.env.NEWS_ADAPTER_API_KEY) {
+        return res.status(401).send({ error: "Unauthorized" })
+    } else {
+        next();
+    }
+});
 
 // API endpoints
-adapterLayer.use('/api/cryptocompare/', cryptocompare);
-adapterLayer.use('/api/cryptopanic/', cryptopanic);
-adapterLayer.use('/api/gnews/', gnews);
-adapterLayer.use('/api/nytimes/', nytimes);
-adapterLayer.use('/api/theguardian/', theguardian);
+adapterLayer.use('/cryptocompare/', cryptocompare);
+adapterLayer.use('/cryptopanic/', cryptopanic);
+adapterLayer.use('/gnews/', gnews);
+adapterLayer.use('/nytimes/', nytimes);
+adapterLayer.use('/theguardian/', theguardian);
 
 // Default 404 handler
 adapterLayer.use((req, res) => {
     res.status(404).json({
-        statusCode: 404,
-        message: "Not Found"
+        error: "Not Found"
     });
 });
 
@@ -34,9 +51,7 @@ adapterLayer.use((req, res) => {
 adapterLayer.use((err, req, res, next) => {
     console.log("Error: " + err);
     res.status(500).json({
-        statusCode: 500,
-        message: "Internal Server Error",
-        error: err
+        message: `Internal Server Error - ${err}`,
     });
 });
 

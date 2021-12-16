@@ -6,18 +6,8 @@ const CryptoCompareWrapper = require('../wrappers/cryptocompare-wrapper');
 
 /**
  * Get latest news from cryptocompare
- * Query params:
- * - key: api key needed for accessing this resource [MANDATORY]
  */
 router.get("/latest", async (req, res, next) => {
-    // Check for api key
-    if (!req.query.key || req.query.key !== process.env.NEWS_ADAPTER_API_KEY) {
-        return res.status(401).json({
-            statusCode: 401,
-            message: "Unauthorized"
-        });
-    }
-
     // Setup API wrappers
     const cryptoCompareWrapper = new CryptoCompareWrapper();
 
@@ -35,18 +25,9 @@ router.get("/latest", async (req, res, next) => {
 /**
  * Search for news of a given currency from cryptocompare
  * Query params:
- * - key: api key needed for accessing this resource [MANDATORY]
  * - currency: search for a specific crypto currency
  */
 router.get("/search", async (req, res, next) => {
-    // Check for api key
-    if (!req.query.key || req.query.key !== process.env.NEWS_ADAPTER_API_KEY) {
-        return res.status(401).json({
-            statusCode: 401,
-            message: "Unauthorized"
-        });
-    }
-
     // Get specific currency if specified
     const currency = (req.query.currency ? req.query.currency : "all");
 

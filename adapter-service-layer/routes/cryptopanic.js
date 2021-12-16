@@ -7,18 +7,9 @@ const CryptoPanicWrapper = require('../wrappers/cryptopanic-wrapper');
 /**
  * Get latest news from cryptocompare
  * Query params:
- * - key: api key needed for accessing this resource [MANDATORY]
  * - number: minimum number of news to retrieve, if available
  */
 router.get("/latest", async (req, res, next) => {
-    // Check for api key
-    if (!req.query.key || req.query.key !== process.env.NEWS_ADAPTER_API_KEY) {
-        return res.status(401).json({
-            statusCode: 401,
-            message: "Unauthorized"
-        });
-    }
-
     // Get minimum number of news from request
     const numberOfNews = (req.query.number ? req.query.number : 1);
 
@@ -39,19 +30,10 @@ router.get("/latest", async (req, res, next) => {
 /**
  * Search for news of a given currency from cryptocompare
  * Query params:
- * - key: api key needed for accessing this resource [MANDATORY]
  * - number: minimum number of news to retrieve, if available 
  * - currency: search for a specific crypto currency
  */
 router.get("/search", async (req, res, next) => {
-    // Check for api key
-    if (!req.query.key || req.query.key !== process.env.NEWS_ADAPTER_API_KEY) {
-        return res.status(401).json({
-            statusCode: 401,
-            message: "Unauthorized"
-        });
-    }
-
     // Get minimum number of news from request
     const numberOfNews = (req.query.number ? req.query.number : 1);
 

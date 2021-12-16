@@ -5,14 +5,12 @@ const News = require('../../models/news');
  * Wrapper for GNews Adapter Layer
  */
 class GNewsWrapper {
-    #API_KEY;               // API Key necessary for accessing the API
     #HOST;
 
     /**
      * Constructor - get API KEY from environment variables
      */
     constructor() {
-        this.#API_KEY = process.env.NEWS_ADAPTER_API_KEY;
         this.#HOST = process.env.ADAPTER_HOST;
     }
 
@@ -25,7 +23,7 @@ class GNewsWrapper {
         let newsResult = [];
 
         // Perform request
-        const rawNews = await axios.get(`${this.#HOST}/api/gnews/latest?key=${this.#API_KEY}`).catch(e => console.log(e));
+        const rawNews = await axios.get(`${this.#HOST}/gnews/latest`).catch(e => console.log(e));
         if (rawNews) {
             for (const newsItem in rawNews.data) {
                 if (Object.hasOwnProperty.call(rawNews.data, newsItem)) {
@@ -57,7 +55,7 @@ class GNewsWrapper {
         const dateFilters = `from=${fromDate.toISOString()}&to=${toDate.toISOString()}`;
 
         // Perform request
-        const rawNews = await axios.get(`${this.#HOST}/api/gnews/search?key=${this.#API_KEY}&${dateFilters}&currency=${currency}`).catch(e => console.log(e));
+        const rawNews = await axios.get(`${this.#HOST}/gnews/search?${dateFilters}&currency=${currency}`).catch(e => console.log(e));
         if (rawNews) {
             for (const newsItem in rawNews.data) {
                 if (Object.hasOwnProperty.call(rawNews.data, newsItem)) {

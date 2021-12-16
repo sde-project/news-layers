@@ -5,14 +5,12 @@ const News = require('../../models/news');
  * Wrapper for New York Times Adapter Layer
  */
 class NewYorkTimesWrapper {
-    #API_KEY;               // API Key necessary for accessing the API
     #HOST;
 
     /**
      * Constructor - get API KEY from environment variables
      */
     constructor() {
-        this.#API_KEY = process.env.NEWS_ADAPTER_API_KEY;
         this.#HOST = process.env.ADAPTER_HOST;
     }
 
@@ -26,7 +24,7 @@ class NewYorkTimesWrapper {
         let newsResult = [];
 
         // Perform request
-        const rawNews = await axios.get(`${this.#HOST}/api/nytimes/latest?key=${this.#API_KEY}&number=${numberOfNews}`).catch(e => console.log(e));
+        const rawNews = await axios.get(`${this.#HOST}/nytimes/latest?number=${numberOfNews}`).catch(e => console.log(e));
         if (rawNews) {
             for (const newsItem in rawNews.data) {
                 if (Object.hasOwnProperty.call(rawNews.data, newsItem)) {
@@ -59,7 +57,7 @@ class NewYorkTimesWrapper {
         const dateFilters = `from=${fromDate.toISOString()}&to=${toDate.toISOString()}`;
 
         // Perform request
-        const rawNews = await axios.get(`${this.#HOST}/api/nytimes/search?key=${this.#API_KEY}&${dateFilters}&currency=${currency}&number=${numberOfNews}`).catch(e => console.log(e));
+        const rawNews = await axios.get(`${this.#HOST}/nytimes/search?${dateFilters}&currency=${currency}&number=${numberOfNews}`).catch(e => console.log(e));
         if (rawNews) {
             for (const newsItem in rawNews.data) {
                 if (Object.hasOwnProperty.call(rawNews.data, newsItem)) {

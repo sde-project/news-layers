@@ -31,9 +31,7 @@ router.get("/", async (req, res, next) => {
     // Check if the request is valid
     if (!req.query.from || !req.query.to) {
         return res.status(400).json({
-            statusCode: 400,
-            message: "Bad Request",
-            error: "the query parameters from and to must be provided"
+            error: "Bad Request - the query parameters from and to must be provided"
         });
     }
 

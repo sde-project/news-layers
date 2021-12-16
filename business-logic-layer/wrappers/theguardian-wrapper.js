@@ -5,14 +5,12 @@ const News = require('../../models/news');
  * Wrapper for The Guardian Adapter Layer
  */
 class TheGuardianWrapper {
-    #API_KEY;               // API Key necessary for accessing the API
     #HOST;
 
     /**
      * Constructor - get API KEY from environment variables
      */
     constructor() {
-        this.#API_KEY = process.env.NEWS_ADAPTER_API_KEY;
         this.#HOST = process.env.ADAPTER_HOST;
     }
 
@@ -26,7 +24,7 @@ class TheGuardianWrapper {
         let newsResult = [];
 
         // Perform request
-        const rawNews = await axios.get(`${this.#HOST}/api/theguardian/latest?key=${this.#API_KEY}&number=${numberOfNews}`).catch(e => console.log(e));
+        const rawNews = await axios.get(`${this.#HOST}/theguardian/latest?number=${numberOfNews}`).catch(e => console.log(e));
         if (rawNews) {
             for (const newsItem in rawNews.data) {
                 if (Object.hasOwnProperty.call(rawNews.data, newsItem)) {
@@ -59,7 +57,7 @@ class TheGuardianWrapper {
         const dateFilters = `from=${fromDate.toISOString()}&to=${toDate.toISOString()}`;
 
         // Perform request
-        const rawNews = await axios.get(`${this.#HOST}/api/theguardian/search?key=${this.#API_KEY}&${dateFilters}&currency=${currency}&number=${numberOfNews}`).catch(e => console.log(e));
+        const rawNews = await axios.get(`${this.#HOST}/theguardian/search?${dateFilters}&currency=${currency}&number=${numberOfNews}`).catch(e => console.log(e));
         if (rawNews) {
             for (const newsItem in rawNews.data) {
                 if (Object.hasOwnProperty.call(rawNews.data, newsItem)) {

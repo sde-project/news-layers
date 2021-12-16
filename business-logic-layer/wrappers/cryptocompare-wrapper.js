@@ -5,14 +5,12 @@ const News = require('../../models/news');
  * Wrapper for CryptoCompare Adapter Layer
  */
 class CryptoCompareWrapper {
-    #API_KEY;   // API Key necessary for accessing the API
     #HOST;
 
     /**
      * Constructor - get API KEY from environment variables
      */
     constructor() {
-        this.#API_KEY = process.env.NEWS_ADAPTER_API_KEY;
         this.#HOST = process.env.ADAPTER_HOST;
     }
 
@@ -25,7 +23,7 @@ class CryptoCompareWrapper {
         let newsResult = [];
 
         // Perform request
-        const rawNews = await axios.get(`${this.#HOST}/api/cryptocompare/latest?key=${this.#API_KEY}`).catch(e => console.log(e));
+        const rawNews = await axios.get(`${this.#HOST}/cryptocompare/latest`).catch(e => console.log(e));
         if (rawNews) {
             for (const newsItem in rawNews.data) {
                 if (Object.hasOwnProperty.call(rawNews.data, newsItem)) {
@@ -47,7 +45,7 @@ class CryptoCompareWrapper {
         let newsResult = [];
 
         // Perform request
-        const rawNews = await axios.get(`${this.#HOST}/api/cryptocompare/search?key=${this.#API_KEY}&currency=${currency}`).catch(e => console.log(e));
+        const rawNews = await axios.get(`${this.#HOST}/cryptocompare/search?currency=${currency}`).catch(e => console.log(e));
         if (rawNews) {
             for (const newsItem in rawNews.data) {
                 if (Object.hasOwnProperty.call(rawNews.data, newsItem)) {

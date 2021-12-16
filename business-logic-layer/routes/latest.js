@@ -118,8 +118,8 @@ router.get("/currency/:currency", async (req, res, next) => {
             next(err);
         }
     } else {
-        res.status(200).json({
-            message: "No Crypto Currency Provided"
+        res.status(400).json({
+            error: "No Crypto Currency Provided"
         });
     }
 });
