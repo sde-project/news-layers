@@ -1,0 +1,30 @@
+{
+  "name": "news-business-logic-layer",
+  "version": "1.0.0",
+  "description": "News Business logic Layer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sde-project/news-layers.git"
+  },
+  "author": "Luca De Menego",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sde-project/news-layers/issues"
+  },
+  "homepage": "https://github.com/sde-project/news-layers#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "string-similarity": "^4.0.4",
+    "swagger-ui-express": "^4.3.0",
+    "vader-sentiment": "^1.1.3"
+  }
+}

@@ -12,12 +12,35 @@ The news providers used by this layer are:
 - **News Aggregation Providers**:
     - GNews - [API](https://gnews.io/docs/v4#introduction) - [LIMITS](https://gnews.io/#pricing)
 
-### Adapter Service Layer
-After the API fetching, all the news will be expressed with the following structure:
+
+### Messages structure
+All the news our services will deal with will be expressed with the following structure:
 ```
 {
     "title": "news title",
     "content": "link to the news",
-    "publishedAt": "date in which the news was published"
+    "publishedAt": "date in which the news was published",
+    "source": "API source",
+    "sentiment": "Sentiment of the news, from -1 (negative) to +1 (positive)"
 }
 ```
+
+### Adapter Service Layer
+News is retrieved from different news providers.
+**Five routes** are exposed:
+- `/api/cryptocompare`: get latest or search for specific news from **cryptocompare**
+- `/api/cryptopanic`: get latest or search for specific news from **cryptopanic**
+- `/api/gnews`: get latest or search for specific news from **gnews**
+- `/api/nytimes`: get latest or search for specific news from **nytimes**
+- `/api/theguardian`: get latest or search for specific news from **theguardian**
+
+The API documentation can be found [here]()
+
+### Business Logic Layer
+News is retrieved from the Adapter Service Layer, filtered based on pre-defined rules and checked for duplicates.
+The sentiment is calculated in this layer using *VADER*.
+**Two routes** are exposed:
+- `/api/latest`: get latest news from crypto niche news providers;
+- `/api/search`: search for specific news based on the time frame and the currency.
+
+The API documentation can be found [here]()
