@@ -1,5 +1,5 @@
 var axios = require('axios');
-const News = require('../../models/news');
+const News = require('../models/news');
 
 /**
  * Wrapper for CryptoPanic API
