@@ -5,7 +5,7 @@ services:
   news-adapter:
     build: ./adapter-service-layer
     ports:
-      - 8000:8000
+      - 9000:8000
     networks:
       - news
   news-business-logic:
@@ -13,6 +13,6 @@ services:
     depends_on:
       - news-adapter
     ports:
-      - 8001:8000
+      - 9001:8000
     networks:
       - news

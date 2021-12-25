@@ -28,19 +28,19 @@ All the news our services will deal with will be expressed with the following st
 ### Adapter Service Layer
 News is retrieved from different news providers.
 **Five routes** are exposed:
-- `/api/cryptocompare`: get latest or search for specific news from **cryptocompare**
-- `/api/cryptopanic`: get latest or search for specific news from **cryptopanic**
-- `/api/gnews`: get latest or search for specific news from **gnews**
-- `/api/nytimes`: get latest or search for specific news from **nytimes**
-- `/api/theguardian`: get latest or search for specific news from **theguardian**
+- `/cryptocompare`: get latest or search for specific news from **cryptocompare**
+- `/cryptopanic`: get latest or search for specific news from **cryptopanic**
+- `/gnews`: get latest or search for specific news from **gnews**
+- `/nytimes`: get latest or search for specific news from **nytimes**
+- `/theguardian`: get latest or search for specific news from **theguardian**
 
-The API documentation can be found [here]()
+The API documentation can be found under `/api-docs`.
 
 ### Business Logic Layer
 News is retrieved from the Adapter Service Layer, filtered based on pre-defined rules and checked for duplicates.
 The sentiment is calculated in this layer using *VADER*.
 **Two routes** are exposed:
-- `/api/latest`: get latest news from crypto niche news providers;
-- `/api/search`: search for specific news based on the time frame and the currency.
+- `/latest`: get latest news from crypto niche news providers;
+- `/search`: search for specific news based on the time frame and the currency.
 
-The API documentation can be found [here]()
+The API documentation can be found under `/api-docs`.

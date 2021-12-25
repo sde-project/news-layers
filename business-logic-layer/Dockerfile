@@ -4,5 +4,5 @@ COPY package.json /app
 RUN npm install
 COPY . /app
 CMD npm run start
-ENV ADAPTER_HOST=http://news-adapter:8000
-EXPOSE 8001
+ENV ADAPTER_HOST=http://news-adapter:9000
+EXPOSE 8000
