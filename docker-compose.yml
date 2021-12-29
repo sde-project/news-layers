@@ -1,13 +1,14 @@
 version: "3"
 networks:
-  news:
+  sde:
+    external: true
 services:
   news-adapter:
     build: ./adapter-service-layer
     ports:
       - 9000:8000
     networks:
-      - news
+      - sde
   news-business-logic:
     build: ./business-logic-layer
     depends_on:
@@ -15,4 +16,4 @@ services:
     ports:
       - 9001:8000
     networks:
-      - news
+      - sde
