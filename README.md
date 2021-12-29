@@ -34,7 +34,7 @@ News is retrieved from different news providers.
 - `/nytimes`: get latest or search for specific news from **nytimes**
 - `/theguardian`: get latest or search for specific news from **theguardian**
 
-The API documentation can be found under `/api-docs`.
+The API documentation can be found under `/api-docs` - port 9000 if run with docker-compose.
 
 ### Business Logic Layer
 News is retrieved from the Adapter Service Layer, filtered based on pre-defined rules and checked for duplicates.
@@ -43,4 +43,4 @@ The sentiment is calculated in this layer using *VADER*.
 - `/latest`: get latest news from crypto niche news providers;
 - `/search`: search for specific news based on the time frame and the currency.
 
-The API documentation can be found under `/api-docs`.
+The API documentation can be found under `/api-docs` - port 9001 if run with docker-compose.
