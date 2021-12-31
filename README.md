@@ -44,3 +44,10 @@ The sentiment is calculated in this layer using *VADER*.
 - `/search`: search for specific news based on the time frame and the currency.
 
 The API documentation can be found under `/api-docs` - port 9001 if run with docker-compose.
+
+### Process Centric Layer
+A very simple process centric layer that exposes the last news.
+**One route** is exposed:
+- `/latest`: get latest news from crypto niche news providers.
+
+The API documentation can be found under `/api-docs` - port 9002 if run with docker-compose.

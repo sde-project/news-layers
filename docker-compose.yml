@@ -17,3 +17,9 @@ services:
       - 9001:8000
     networks:
       - sde
+  news-process-centric:
+    build: ./process-centric-layer
+    ports:
+      - 9002:8000
+    networks:
+      - sde
