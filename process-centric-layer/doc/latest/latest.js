@@ -1,5 +1,5 @@
 const latest = {
-    "/latest": {
+    "/news/latest": {
         get: {
             tags: ["News"],
             description: "Get latest news",
@@ -19,7 +19,7 @@ const latest = {
             }
         }
     },
-    "/latest/currency/:currency": {
+    "/news/latest/currency/:currency": {
         get: {
             tags: ["News"],
             description: "Get latest news of a certain currency",

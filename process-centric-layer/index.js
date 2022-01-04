@@ -28,7 +28,7 @@ processLayer.use((req, res, next) => {
 });
 
 // API endpoints
-processLayer.use('/latest/', latest);
+processLayer.use('/news/latest/', latest);
 
 // Default 404 handler
 processLayer.use((req, res) => {
