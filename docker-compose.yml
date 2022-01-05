@@ -19,6 +19,8 @@ services:
       - sde
   news-process-centric:
     build: ./process-centric-layer
+    depends_on:
+      - news-business-logic
     ports:
       - 9002:8000
     networks:
