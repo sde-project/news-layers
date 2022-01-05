@@ -20,7 +20,7 @@ processLayer.use(morgan("dev"));
 processLayer.use(cors());
 
 // Documentation
-processLayer.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
+processLayer.use('/news/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 
 processLayer.use((req, res, next) => {
     axios.defaults.headers.common["Authorization"] = process.env.NEWS_BUSINESS_LOGIC_API_KEY;
